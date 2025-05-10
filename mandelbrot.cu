@@ -24,7 +24,7 @@ __global__ void mandelbrot_kernel(uint32_t* pixels, int width, int height,
         ++i;
     }
 
-    uint32_t color = (i == maxIter) ? 0x000000FF : (0xFF << 24) 
+    uint32_t color = (i == maxIter) ? 0x000000FF : (0xFF << 24)     
                                                     | ((i * 9) % 255 << 16) 
                                                     | ((i * 5) % 255 << 8) 
                                                     | (i * 2) % 255;

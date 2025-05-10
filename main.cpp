@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
         WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     //try different pixelformats for different color pallettes
-    SDL_Texture* texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING,
+    SDL_Texture* texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_XRGB8888, SDL_TEXTUREACCESS_STREAMING,
         WIDTH, HEIGHT);
 
     uint32_t* pixels_host = new uint32_t[WIDTH * HEIGHT];
@@ -44,8 +44,8 @@ int main(int argc, char* argv[]) {
                 case SDLK_s: centerY += moveFactor; break;
                 case SDLK_a: centerX -= moveFactor; break;
                 case SDLK_d: centerX += moveFactor; break;
-                case SDLK_q: scale *= 0.9; MAX_ITER = base + 32 * log2(1.0 / scale); break;    //MAX_ITER increases with zoom
-                case SDLK_e: scale /= 0.9; MAX_ITER = base + 32 * log2(1.0 / scale); break;
+                case SDLK_q: scale *= 0.9; MAX_ITER = base + 100 * log2(1.0 / scale); break;    //MAX_ITER increases with zoom
+                case SDLK_e: scale /= 0.9; MAX_ITER = base + 100 * log2(1.0 / scale); break;
                 }
             }
         }

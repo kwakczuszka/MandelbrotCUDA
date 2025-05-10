@@ -44,8 +44,8 @@ int main(int argc, char* argv[]) {
                 case SDLK_s: centerY += moveFactor; break;
                 case SDLK_a: centerX -= moveFactor; break;
                 case SDLK_d: centerX += moveFactor; break;
-                case SDLK_q: scale *= 0.9; MAX_ITER = base + 100 * log2(1.0 / scale); break;    //MAX_ITER increases with zoom
-                case SDLK_e: scale /= 0.9; MAX_ITER = base + 100 * log2(1.0 / scale); break;
+                case SDLK_q: scale *= 0.9; MAX_ITER = base + 32 * log2(1.0 / scale); break;    //MAX_ITER increases with zoom
+                case SDLK_e: scale /= 0.9; MAX_ITER = base + 32 * log2(1.0 / scale); break;
                 }
             }
         }

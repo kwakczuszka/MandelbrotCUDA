@@ -8,7 +8,8 @@ extern void launch_mandelbrot(uint32_t* devBuffer, int width, int height,
 
 const int WIDTH = 1600;
 const int HEIGHT = 900;
-const int MAX_ITER = 1000;
+const int base = 200;
+int MAX_ITER = base;
 
 int main(int argc, char* argv[]) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -19,7 +20,8 @@ int main(int argc, char* argv[]) {
     SDL_Window* window = SDL_CreateWindow("CUDA Mandelbrot", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    SDL_Texture* texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_XRGB8888, SDL_TEXTUREACCESS_STREAMING,
+    //try different pixelformats for different color pallettes
+    SDL_Texture* texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING,
         WIDTH, HEIGHT);
 
     uint32_t* pixels_host = new uint32_t[WIDTH * HEIGHT];
@@ -33,7 +35,6 @@ int main(int argc, char* argv[]) {
     bool running = true;
     SDL_Event e;
     while (running) {
-        // Input handling
         while (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) running = false;
             if (e.type == SDL_KEYDOWN) {
@@ -43,8 +44,8 @@ int main(int argc, char* argv[]) {
                 case SDLK_s: centerY += moveFactor; break;
                 case SDLK_a: centerX -= moveFactor; break;
                 case SDLK_d: centerX += moveFactor; break;
-                case SDLK_q: scale *= 0.8; break;
-                case SDLK_e: scale /= 0.8; break;
+                case SDLK_q: scale *= 0.9; MAX_ITER = base + 100 * log2(1.0 / scale); break;    //MAX_ITER increases with zoom
+                case SDLK_e: scale /= 0.9; MAX_ITER = base + 100 * log2(1.0 / scale); break;
                 }
             }
         }
